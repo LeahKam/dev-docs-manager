@@ -21,7 +21,6 @@ from src.config import (
 
 unstrict_ssl()
 
-
 PROMPTS_DIR = Path(__file__).parent / "prompts"
 
 
@@ -38,7 +37,6 @@ if not OPENAI_API_KEY:
 
 
 TEXT_QA_TEMPLATE = PromptTemplate(load_prompt("qa_prompt.md"))
-SYSTEM_PROMPT = load_prompt("system.md")
 
 
 def load_index():
@@ -67,7 +65,6 @@ llm = OpenAI(
     api_key=OPENAI_API_KEY,
     model="gpt-4o-mini",
     temperature=0.1,
-    system_prompt=SYSTEM_PROMPT,
 )
 response_synthesizer = get_response_synthesizer(
     llm=llm,

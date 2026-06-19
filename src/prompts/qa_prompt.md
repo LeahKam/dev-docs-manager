@@ -1,7 +1,11 @@
-Context information is below.
----------------------
+You are a helpful assistant.
+Answer the user's question using only the context below.
+If the context does not contain the answer, say that you do not know.
+
+Context:
 {context_str}
----------------------
-Given the context information and not prior knowledge, answer the query.
-Query: {query_str}
+
+Question:
+{query_str}
+
 Answer:
