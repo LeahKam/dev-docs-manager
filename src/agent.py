@@ -18,6 +18,7 @@ from src.config import (
     PINECONE_API_KEY,
     PINECONE_INDEX_NAME,
 )
+from src.workflow import RAGWorkflow
 
 unstrict_ssl()
 
@@ -72,13 +73,15 @@ response_synthesizer = get_response_synthesizer(
     response_mode=ResponseMode.COMPACT
 )
 
-def chat(message, history):
-    nodes = retriever.retrieve(message)
-    if not nodes:
-        return "No relevant context found."
+workflow = RAGWorkflow(
+    retriever=retriever,
+    response_synthesizer=response_synthesizer,
+    timeout=120,
+)
 
-    response = response_synthesizer.synthesize(message, nodes=nodes)
-    return str(response)
+
+async def chat(message, history):
+    return await workflow.run(query=message)
 
 
 demo = gr.ChatInterface(
